@@ -43,10 +43,10 @@ a {
   background-color: black;
 }
 /* ----------------------------------------------------- */
-.ipAddress{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 42px;
+.ipAddress {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 42px;
 }
 #map {
   border: 2px solid red;
@@ -73,18 +73,13 @@ input {
 input::placeholder {
   color: black;
 }
-/* .box {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.box {
   border: 3px solid black;
   width: 44vw;
   margin-bottom: 4.8vh;
   border-radius: 10px;
   padding: 3.6vh 2.9vw;
-} */
-.box{
-  border: 2px solid black;
-  padding: 5px 10px;
-
+}
+.row {
+  justify-content: space-between;
 }

@@ -15,23 +15,21 @@ jQuery.get(
     $(".city").html(e.city);
     $(".region").html(e.region);
     $(".org").html(e.org);
-    $(".hostname").html(e.hostname);
+    $(".hostname").html(window.location.hostname);
     $(".postal").html(e.postal);
-    // $(".timezone").html(e.timezone);
+    $(".timezone").html(e.timezone);
   },
   "jsonp"
 );
 //---------------------------------------------------------------------
 
 $.getJSON(`https://geo.ipify.org/api/v2/country,city?apiKey=at_TWN5bBhixAt5OLrWCh9fg62MkZW8K&ipAddress`, function (data) {
-  console.log(data);
+  // console.log(data);
   $("#lati").html(data.location.lat);
   $("#longi").html(data.location.lng);
   $(".hostname").html(data.hostname);
-  $(".timezone").html(data.location.timezone);
+  // $(".timezone").html(data.location.timezone);
 });
-
-
 
 var myDate = "";
 var getTime = function () {
@@ -45,7 +43,6 @@ setInterval(getTime, 1000);
 
 //-------------------------------------------------------------------------------------------------
 
-
 setTimeout(() => {
   // console.log("pincode is ",pinCode)
   fetch(`https://api.postalpincode.in/pincode/${pinCode}`)
@@ -53,26 +50,38 @@ setTimeout(() => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
-      console.log(data[0].Message);
       document.getElementById("message").innerHTML = data[0].Message;
-      console.log(data[0].PostOffice[0]);
-      console.log(data[0].PostOffice[0].Name);
-
 
       let postOfficeData = "";
       data[0].PostOffice.map((value) => {
-        console.log(value);
-        postOfficeData += `<ul style="border:2px solid black; border-radius:5px; list-style-type:none; font-size:40px; padding:10px; display:inline-block" >
-                    <li>Name: <span id="name">${value.Name}</span></li>
-                    <li>Branch Type: <span id="Branch Type"> ${value.BranchType}</span></li>
-                    <li>Delivery Status: <span id="Delivery Status"> ${value.DeliveryStatus}</span></li>
-                    <li>District: <span id="District"> ${value.District}</span></li>
-                    <li>Division: <span id=Division"> ${value.Division}</span></li>
-                </ul>
-                <br><br> `;
+        // console.log(value);
+        postOfficeData += `<div class="col-12 col-md-6 box mb-5" >
+        <div class="postValues fw400">
+          <p>Name : <span id="name">${value.Name}</span></p>
+          <p>Branch Type : <span id="Branch Type"> ${value.BranchType}</span></p>
+          <p>Delivery Status : <span id="Delivery Status"> ${value.DeliveryStatus}</span></p>
+          <p>District : <span id="District"> ${value.District}</span></p>
+          <p>Division : <span id=Division"> ${value.Division}</span></p>
+        </div>
+       </div>`;
 
-        document.getElementById("postinfo").innerHTML = postOfficeData;
+        document.getElementById("postDiv").innerHTML = postOfficeData;
       });
     });
 }, 1000);
+
+document.querySelector(".inputValue").addEventListener("keyup", () => {
+  debugger;
+  var input, filter, li, i;
+  input = document.querySelector(".inputValue");
+  filter = input.value.toUpperCase();
+  li = document.getElementsByClassName("box");
+  for (i = 0; i < li.length; i++) {
+    let title = li[i].querySelector(".postValues");
+    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+      li[i].classList.remove("d-none");
+    } else {
+      li[i].classList.add("d-none");
+    }
+  }
+});
