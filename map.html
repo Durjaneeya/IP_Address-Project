@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAP DATA</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./index.js" defer type="module"></script>
+  </head>
+  <body>
+    <div>
+      <h1 class="fw700">MY Public IP ADDRESS : <span class="ip"></span></h1>
+      <div class="ipAddress fw700">
+        
+        <!-- <div class="output fw700">
+          <p>City: <span class="city"></span></p>
+          <p>Region: <span class="region"></span></p>
+        </div>
+        <div class="output fw700">
+          <p>Organisation: <span class="org"></span></p>
+          <p>Hostname: <span class="hostname"></span></p>
+        </div> -->
+      </div>
+
+      <button id="fetch">Get Data</button>
+      <div id="location-info" class="output fw700">
+        <p>Lat: <span id="lati"></span></p>
+        <p>Long: <span id="longi"></span></p>
+      </div>
+
+      <div id="map" id=""></div>
+    </div>
+  </body>
+</html>
