@@ -1,16 +1,23 @@
 var timeZone = "";
 var pinCode = "";
+var latLong = "";
+var lat = "";
+var long = "";
 $.getJSON(`https://ipinfo.io/103.57.84.135/json?token=894c517946f314`, function (data) {
   // console.log(data);
   ourTime = data.timezone;
   pinCode = data.postal;
+  latLong = data.loc;
+  var latLongSplit = latLong.split(",");
+  lat = latLongSplit[0];
+  long = latLongSplit[1];
 });
 
 //----------------------------------------------------------------
 jQuery.get(
   "https://ipinfo.io/103.57.84.135/json?token=894c517946f314",
   function (e) {
-    console.log(e);
+    // console.log(e);
     $(".ip").html(e.ip);
     $(".city").html(e.city);
     $(".region").html(e.region);
@@ -24,11 +31,9 @@ jQuery.get(
 //---------------------------------------------------------------------
 
 $.getJSON(`https://geo.ipify.org/api/v2/country,city?apiKey=at_TWN5bBhixAt5OLrWCh9fg62MkZW8K&ipAddress`, function (data) {
-  // console.log(data);
-  $("#lati").html(data.location.lat);
-  $("#longi").html(data.location.lng);
-  $(".hostname").html(data.hostname);
-  // $(".timezone").html(data.location.timezone);
+// console.log(data);
+$("#lati").html(data.location.lat);
+$("#longi").html(data.location.lng);
 });
 
 var myDate = "";
