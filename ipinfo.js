@@ -13,12 +13,22 @@ $.getJSON(`https://ipinfo.io/103.57.84.135/json?token=894c517946f314`, function 
   long = latLongSplit[1];
 });
 
+//---------------------------------------------------------------------
+
+$.getJSON(`https://geo.ipify.org/api/v2/country,city?apiKey=at_TWN5bBhixAt5OLrWCh9fg62MkZW8K&ipAddress`, function (data) {
+// console.log(data);
+$("#lati").html(data.location.lat);
+$("#longi").html(data.location.lng);
+});
+
 //----------------------------------------------------------------
 jQuery.get(
   "https://ipinfo.io/103.57.84.135/json?token=894c517946f314",
   function (e) {
     // console.log(e);
     $(".ip").html(e.ip);
+    $("#lati").html(lat);
+    $("#longi").html(long);
     $(".city").html(e.city);
     $(".region").html(e.region);
     $(".org").html(e.org);
@@ -28,13 +38,7 @@ jQuery.get(
   },
   "jsonp"
 );
-//---------------------------------------------------------------------
 
-$.getJSON(`https://geo.ipify.org/api/v2/country,city?apiKey=at_TWN5bBhixAt5OLrWCh9fg62MkZW8K&ipAddress`, function (data) {
-// console.log(data);
-$("#lati").html(data.location.lat);
-$("#longi").html(data.location.lng);
-});
 
 var myDate = "";
 var getTime = function () {
