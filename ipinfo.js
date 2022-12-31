@@ -3,42 +3,50 @@ var pinCode = "";
 var latLong = "";
 var lat = "";
 var long = "";
-$.getJSON(`https://ipinfo.io/103.57.84.135/json?token=894c517946f314`, function (data) {
-  // console.log(data);
-  ourTime = data.timezone;
-  pinCode = data.postal;
-  latLong = data.loc;
-  var latLongSplit = latLong.split(",");
-  lat = latLongSplit[0];
-  long = latLongSplit[1];
+var ip_Address = "";
+
+$.getJSON(`https://api.ipify.org/?format=json`, function (data) {
+  //   console.log(data);
+  ip_Address = data.ip;
 });
 
-//---------------------------------------------------------------------
+setTimeout(() => {
+  $.getJSON(`https://ipinfo.io/${ip_Address}/json?token=894c517946f314`, function (data) {
+    // console.log(data);
+    ourTime = data.timezone;
+    pinCode = data.postal;
+    latLong = data.loc;
+    var latLongSplit = latLong.split(",");
+    lat = latLongSplit[0];
+    long = latLongSplit[1];
+  });
 
-$.getJSON(`https://geo.ipify.org/api/v2/country,city?apiKey=at_TWN5bBhixAt5OLrWCh9fg62MkZW8K&ipAddress`, function (data) {
-// console.log(data);
-$("#lati").html(data.location.lat);
-$("#longi").html(data.location.lng);
-});
+  //---------------------------------------------------------------------
 
-//----------------------------------------------------------------
-jQuery.get(
-  "https://ipinfo.io/103.57.84.135/json?token=894c517946f314",
-  function (e) {
-    // console.log(e);
-    $(".ip").html(e.ip);
-    $("#lati").html(lat);
-    $("#longi").html(long);
-    $(".city").html(e.city);
-    $(".region").html(e.region);
-    $(".org").html(e.org);
-    $(".hostname").html(window.location.hostname);
-    $(".postal").html(e.postal);
-    $(".timezone").html(e.timezone);
-  },
-  "jsonp"
-);
+  // $.getJSON(`https://geo.ipify.org/api/v2/country,city?apiKey=at_TWN5bBhixAt5OLrWCh9fg62MkZW8K&ipAddress`, function (data) {
+  //   // console.log(data);
+  //   $("#lati").html(data.location.lat);
+  //   $("#longi").html(data.location.lng);
+  // });
 
+  //----------------------------------------------------------------
+  jQuery.get(
+    `https://ipinfo.io/${ip_Address}/json?token=894c517946f314`,
+    function (e) {
+      // console.log(e);
+      $(".ip").html(e.ip);
+      $("#lati").html(lat);
+      $("#longi").html(long);
+      $(".city").html(e.city);
+      $(".region").html(e.region);
+      $(".org").html(e.org);
+      $(".hostname").html(window.location.hostname);
+      $(".postal").html(e.postal);
+      $(".timezone").html(e.timezone);
+    },
+    "jsonp"
+  );
+}, 1000);
 
 var myDate = "";
 var getTime = function () {
@@ -60,7 +68,6 @@ setTimeout(() => {
     })
     .then((data) => {
       document.getElementById("message").innerHTML = data[0].Message;
-
       let postOfficeData = "";
       data[0].PostOffice.map((value) => {
         // console.log(value);
@@ -77,7 +84,7 @@ setTimeout(() => {
         document.getElementById("postDiv").innerHTML = postOfficeData;
       });
     });
-}, 1000);
+}, 1500);
 
 document.querySelector(".inputValue").addEventListener("keyup", () => {
   debugger;
